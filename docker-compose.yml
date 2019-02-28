@@ -1,0 +1,32 @@
+version: '2.1'
+services:
+  postgres:
+    image: postgres
+    env_file:
+      - env
+    volumes:
+      - db:/var/lib/postgresql/data
+    healthcheck:
+      test: "pg_isready -q -U jamesroberts"
+      interval: 5s
+      timeout: 5s
+      retries: 5
+  app:
+    build:
+      dockerfile: Dockerfile
+      context: .
+    env_file:
+      - env
+    volumes:
+      - app:/usr/src/app
+    ports:
+     - "127.0.0.1:8000:8000"
+    links:
+      - postgres
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+volumes:
+  app:
+  db:

@@ -1,0 +1,9 @@
+{% load cms_tags %}
+
+<div class="resume-section p-3 p-lg-5 d-flex {{ instance.extra_classes }}" id="{{ instance.label }}">
+    <div class="w-100">
+        {% for plugin in instance.child_plugin_instances %}
+            {% render_plugin plugin %}
+        {% endfor %}
+    </div>
+</div>

@@ -1,0 +1,7 @@
+{% load cms_tags %}
+
+<ul class="list-inline dev-icons">
+    {% for plugin in instance.child_plugin_instances %}
+        {% render_plugin plugin %}
+    {% endfor %}
+</ul>
